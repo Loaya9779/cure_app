@@ -39,7 +39,7 @@ class DashboardCubit extends Cubit<DashboardState> {
       
       int active = 0;
       int upcoming = 0;
-      int history = 0;
+      int history = active + upcoming;
 
       for (var doc in snapshot.docs) {
         final status = doc["status"];
@@ -56,7 +56,7 @@ class DashboardCubit extends Cubit<DashboardState> {
       emit(DashboardState(
         active: active,
         upcoming: upcoming,
-        history: active + upcoming,
+        history: history,
       ));
     });
   }

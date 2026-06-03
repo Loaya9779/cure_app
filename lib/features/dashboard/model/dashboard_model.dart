@@ -5,6 +5,7 @@ class DashboardItemModel{
   final String title;
   final int count;
   final Color color;
+  
 
   DashboardItemModel({
     required this.title,

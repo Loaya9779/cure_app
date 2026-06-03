@@ -1,81 +1,55 @@
-import 'package:cuer_app/features/booking/cubit/recent_booking_cubit.dart';
-import 'package:cuer_app/features/booking/cubit/recent_booking_state.dart';
+import 'package:cuer_app/core/utils/colors.dart';
+import 'package:cuer_app/features/booking/model/booking_model.dart';
+import 'package:cuer_app/features/booking/presentation/widgets/booking_card.dart';
+import 'package:cuer_app/features/booking/repository/booking_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class MyBookingsScreen extends StatelessWidget {
   const MyBookingsScreen({super.key});
 
-  static const String pageID = "MyBookings";
+  static const String pageID = "myBookingsPage";
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BookingListCubit()..getBookings(),
-      child: Scaffold(
-        appBar: AppBar(title: const Text("My Bookings")),
-        body: BlocBuilder<BookingListCubit, BookingListState>(
-          builder: (context, state) {
-            if (state is BookingListLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final repo = BookingRepository();
 
-            if (state is BookingListError) {
-              return Center(child: Text(state.message));
-            }
-
-            if (state is BookingListSuccess) {
-              return ListView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: state.bookings.length,
-                itemBuilder: (context, index) {
-                  final booking = state.bookings[index];
-
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    child: ListTile(
-                      title: Text(booking.service),
-                      subtitle: Text(
-                        "${booking.date.day}/${booking.date.month}/${booking.date.year}",
-                      ),
-                      trailing: _statusChip(booking.status),
-                    ),
-                  );
-                },
-              );
-            }
-
-            return const SizedBox();
-          },
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("My Bookings"),
+        backgroundColor: AppColors.primaryColor,
+        foregroundColor: AppColors.textColor,
       ),
-    );
-  }
 
-  Widget _statusChip(String status) {
-    Color color;
+      body: StreamBuilder<List<BookingModel>>(
+        stream: repo.getUserBookings(uid),
 
-    switch (status) {
-      case "Upcoming":
-        color = Colors.orange;
-        break;
-      case "Completed":
-        color = Colors.green;
-        break;
-      default:
-        color = Colors.grey;
-    }
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        status,
-        style: const TextStyle(color: Colors.white),
+          if (snapshot.hasError) {
+            return Center(child: Text("Error loading bookings"));
+          }
+
+          final bookings = snapshot.data ?? [];
+
+          if (bookings.isEmpty) {
+            return const Center(child: Text("No bookings yet"));
+          }
+
+          return ListView.builder(
+            padding: const EdgeInsets.all(12),
+            itemCount: bookings.length,
+            itemBuilder: (context, index) {
+              final booking = bookings[index];
+
+              return BookingCard(booking: booking);
+            },
+          );
+        },
       ),
     );
   }

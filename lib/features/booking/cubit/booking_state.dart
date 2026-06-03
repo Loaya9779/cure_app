@@ -12,7 +12,10 @@ class BookingLoading extends BookingState {}
 
 class BookingSuccess extends BookingState {}
 
+class TimeSelected extends BookingState {}
+
 class BookingError extends BookingState {
   final String message;
+
   BookingError(this.message);
 }

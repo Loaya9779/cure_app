@@ -8,6 +8,7 @@ import 'package:cuer_app/features/auth/presentation/bloc/auth_cubit.dart';
 import 'package:cuer_app/core/widgets/custom_textform_field.dart';
 import 'package:cuer_app/features/auth/presentation/bloc/auth_state.dart';
 import 'package:cuer_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:cuer_app/features/complete_profile/presentation/screens/copmlete_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
           Navigator.pushNamedAndRemoveUntil(
             context,
-            LoginPage.pageID,
+            CompleteProfileScreen.pageID,
             (route) => false,
           );
         }

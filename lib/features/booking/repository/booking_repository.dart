@@ -1,20 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/booking_model.dart';
 
 class BookingRepository {
-  Future<List<BookingModel>> getBookings() async {
-    await Future.delayed(const Duration(seconds: 1));
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-    return [
-      BookingModel(
-        service: "Nurse Visit",
-        date: DateTime.now().add(const Duration(days: 2)),
-        status: "Upcoming",
-      ),
-      BookingModel(
-        service: "Injection",
-        date: DateTime.now().subtract(const Duration(days: 1)),
-        status: "Completed",
-      ),
-    ];
+  // 🔥 Create booking (SAVE TO FIREBASE)
+  Future<void> createBooking(BookingModel booking) async {
+    await _firestore.collection("bookings").add(booking.toJson());
   }
+
+  // 🔥 Get user bookings (STREAM)
+  Stream<List<BookingModel>> getUserBookings(String uid) {
+    return _firestore
+        .collection("bookings")
+        .where("userId", isEqualTo: uid)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return BookingModel.fromJson(doc.data(), doc.id);
+      }).toList();
+    });
+  }
+
+  Future<List<BookingModel>> getUserBookingsOnce(String uid) async {
+  final snapshot = await FirebaseFirestore.instance
+      .collection("bookings")
+      .where("userId", isEqualTo: uid)
+      .get();
+
+  return snapshot.docs.map((doc) {
+    return BookingModel.fromJson(doc.data(), doc.id);
+  }).toList();
+}
 }

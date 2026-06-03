@@ -4,8 +4,8 @@ import 'package:cuer_app/features/booking/cubit/booking_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DateSelector extends StatelessWidget {
-  const DateSelector({super.key});
+class TimeSelector extends StatelessWidget {
+  const TimeSelector({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,20 +13,19 @@ class DateSelector extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<BookingCubit>();
 
-        final selectedDate = cubit.selectedDate;
-
+        final selectedTime = cubit.selectedTime;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Select Date",
+              "Select Time",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 10),
 
-            // DATE DISPLAY
+            // TIME DISPLAY
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -34,9 +33,9 @@ class DateSelector extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                selectedDate == null
-                    ? "No date selected"
-                    : "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
+                selectedTime == null
+                    ? "No time selected"
+                    : selectedTime.format(context),
               ),
             ),
 
@@ -46,24 +45,17 @@ class DateSelector extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.05,
               weidth: MediaQuery.of(context).size.width * 0.2,
               onTap: () async {
-                final date = await showDatePicker(
+                final time = await showTimePicker(
                   context: context,
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(2030),
-                  initialDate: DateTime.now(),
+                  initialTime: TimeOfDay.now(),
                 );
 
-                if (date != null) {
-                  cubit.selectDate(date);
+                if (time != null) {
+                  cubit.selectTime(time);
                 }
               },
-              buttonText:"Pick Date",
+              buttonText: "Pick Time",
             ),
-
-            const SizedBox(height: 10),
-
-            
-          
           ],
         );
       },

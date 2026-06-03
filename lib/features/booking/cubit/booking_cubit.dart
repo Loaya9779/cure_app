@@ -1,75 +1,87 @@
-import 'package:bloc/bloc.dart';
-import 'booking_state.dart';
+import 'package:cuer_app/features/booking/cubit/booking_state.dart';
+import 'package:cuer_app/features/booking/model/booking_model.dart';
+import 'package:cuer_app/features/booking/repository/booking_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookingCubit extends Cubit<BookingState> {
-  BookingCubit() : super(BookingInitial());
+  BookingCubit(this._repo) : super(BookingInitial());
+
+  final BookingRepository _repo;
 
   String? selectedService;
   DateTime? selectedDate;
+  TimeOfDay? selectedTime;
   String? notes;
 
-  // =====================
-  // Select Service
-  // =====================
   void selectService(String service) {
     selectedService = service;
     emit(ServiceSelected());
   }
 
-  // =====================
-  // Select Date
-  // =====================
   void selectDate(DateTime date) {
     selectedDate = date;
     emit(DateSelected());
   }
 
-  // =====================
-  // Add Notes
-  // =====================
+  void selectTime(TimeOfDay time) {
+    selectedTime = time;
+    emit(TimeSelected());
+  }
+
   void addNotes(String value) {
     notes = value;
     emit(NotesAdded());
   }
 
-  // =====================
-  // Validation (IMPORTANT)
-  // =====================
   bool canConfirmBooking() {
-    return selectedService != null && selectedDate != null;
+    return selectedService != null &&
+        selectedDate != null &&
+        selectedTime != null;
   }
 
-  // =====================
-  // Confirm Booking
-  // =====================
   Future<void> confirmBooking() async {
-    // ❗ validation before API
     if (!canConfirmBooking()) {
-      emit(BookingError("Please select service and date"));
+      emit(BookingError("Please select service, date and time"));
       return;
     }
 
     emit(BookingLoading());
 
     try {
-      // simulate API call
-      await Future.delayed(const Duration(seconds: 2));
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+
+      final fullDateTime = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedTime!.hour,
+        selectedTime!.minute,
+      );
+
+      final booking = BookingModel(
+        userId: uid,
+        service: selectedService!,
+        date: fullDateTime,
+        notes: notes,
+        status: "upcoming", // ✅ هنا الحل
+      );
+
+      await _repo.createBooking(booking);
 
       emit(BookingSuccess());
 
-      // reset after success
       resetBooking();
     } catch (e) {
-      emit(BookingError("Something went wrong"));
+      emit(BookingError(e.toString()));
     }
   }
 
-  // =====================
-  // Reset Flow
-  // =====================
   void resetBooking() {
     selectedService = null;
     selectedDate = null;
+    selectedTime = null;
     notes = null;
 
     emit(BookingInitial());

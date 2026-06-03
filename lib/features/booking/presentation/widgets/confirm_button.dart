@@ -1,8 +1,9 @@
+import 'package:cuer_app/core/utils/colors.dart';
+import 'package:cuer_app/core/widgets/custom_button.dart';
 import 'package:cuer_app/features/booking/cubit/booking_cubit.dart';
 import 'package:cuer_app/features/booking/cubit/booking_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class ConfirmButton extends StatelessWidget {
   const ConfirmButton({super.key});
@@ -18,15 +19,21 @@ class ConfirmButton extends StatelessWidget {
         return SizedBox(
           width: double.infinity,
           height: 50,
-          child: ElevatedButton(
-            onPressed: isLoading
+          child: CustomButton(
+            onTap: isLoading
                 ? null
                 : () {
                     cubit.confirmBooking();
                   },
             child: isLoading
                 ? const CircularProgressIndicator(color: Colors.white)
-                : const Text("Confirm Booking"),
+                : const Text(
+                    "Confirm Booking",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppColors.textColor,
+                    ),
+                  ),
           ),
         );
       },

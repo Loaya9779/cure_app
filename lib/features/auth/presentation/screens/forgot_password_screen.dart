@@ -1,3 +1,4 @@
+import 'package:cuer_app/core/utils/colors.dart';
 import 'package:cuer_app/core/widgets/app_dialog.dart';
 import 'package:cuer_app/core/widgets/custom_button.dart';
 import 'package:cuer_app/core/widgets/custom_textform_field.dart';
@@ -43,7 +44,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         final isLoading = state is AuthLoading;
 
         return Scaffold(
-          appBar: AppBar(title: const Text("Forgot Password")),
+          appBar: AppBar(title: const Text("Forgot Password"),
+           backgroundColor: AppColors.primaryColor,),
           body: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(

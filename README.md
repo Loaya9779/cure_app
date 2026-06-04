@@ -1,4 +1,4 @@
-# 🏥 CURE Nursing Booking App
+# 🏥 CUER Nursing Booking App
 
 A production-style Flutter application for booking home-care nursing services.  
 Built using **Flutter, BLoC (Cubit), and Clean Architecture principles**.
@@ -10,7 +10,7 @@ Built using **Flutter, BLoC (Cubit), and Clean Architecture principles**.
 ### 🔐 Authentication
 - User registration and login using Firebase Auth
 - Password reset functionality
-- Secure session handling
+- SeCUER session handling
 
 ---
 

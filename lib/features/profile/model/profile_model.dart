@@ -19,7 +19,6 @@ class ProfileModel {
     required this.rule,
   });
 
-  /// 🔥 تحويل لـ Firebase
   Map<String, dynamic> toJson() {
     return {
       "uid": uid,
@@ -33,7 +32,6 @@ class ProfileModel {
     };
   }
 
-  /// 🔥 تحويل من Firebase
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
       uid: json["uid"] ?? "",
@@ -47,7 +45,6 @@ class ProfileModel {
     );
   }
 
-  /// 🔥 مهم جدًا للتعديل (edit profile)
   ProfileModel copyWith({
     String? name,
     String? phoneNumber,

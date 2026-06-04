@@ -43,7 +43,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           builder: (context, state) {
             return Column(
               children: [
-                // 👋 Welcome
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -57,7 +56,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 20),
 
-                // 📊 Cards (live data from Firebase)
                 DashboardCard(
                   title: "Active Bookings",
                   count: state.active,
@@ -78,7 +76,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const Spacer(),
 
-                // 🔘 Button
                 SizedBox(
                   width: double.infinity,
                   height: 50,

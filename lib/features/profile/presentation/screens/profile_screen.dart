@@ -69,8 +69,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   ProfileInfoTile(title: "Notes", value: user.notes),
 
-                  // const SizedBox(height: 30),
-
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: EditProfileButton(

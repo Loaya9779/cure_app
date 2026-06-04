@@ -4,12 +4,10 @@ import '../model/booking_model.dart';
 class BookingRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // 🔥 Create booking (SAVE TO FIREBASE)
   Future<void> createBooking(BookingModel booking) async {
     await _firestore.collection("bookings").add(booking.toJson());
   }
 
-  // 🔥 Get user bookings (STREAM)
   Stream<List<BookingModel>> getUserBookings(String uid) {
     return _firestore
         .collection("bookings")

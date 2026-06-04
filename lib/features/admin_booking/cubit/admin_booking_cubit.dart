@@ -32,7 +32,7 @@ class AdminBookingCubit extends Cubit<AdminBookingState> {
   Future<void> updateStatus(String id, String status) async {
     try {
       await repository.updateStatus(id, status);
-      getOrders(); // 🔥 force refresh
+      getOrders(); 
     } catch (e) {
       emit(BookingError(e.toString()));
     }

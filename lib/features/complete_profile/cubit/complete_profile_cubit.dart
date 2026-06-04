@@ -10,23 +10,19 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     emit(ProfileLoading());
 
     try {
-      /// 🔥 Debug
       print("🚀 Save Profile Started");
       print("UID: ${profile.uid}");
 
-      /// ❌ Check UID first (important)
       if (profile.uid.isEmpty) {
         emit(ProfileError("UID is empty"));
         return;
       }
 
-      /// 🔥 Firestore save
       await FirebaseFirestore.instance
           .collection("users")
           .doc(profile.uid)
           .set(profile.toJson());
 
-      /// 🔥 Debug
       print("✅ Firestore Save Completed");
 
       emit(ProfileCompleted());

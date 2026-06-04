@@ -25,7 +25,6 @@ class TimeSelector extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // TIME DISPLAY
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(

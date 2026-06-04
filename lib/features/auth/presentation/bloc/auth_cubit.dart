@@ -7,7 +7,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // ================= REGISTER =================
   Future<void> register({
     required String email,
     required String password,
@@ -28,7 +27,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // ================= LOGIN =================
   Future<void> login({required String email, required String password}) async {
     emit(AuthLoading());
 
@@ -43,13 +41,11 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // ================= LOGOUT =================
   Future<void> logout() async {
     await _auth.signOut();
     emit(AuthInitial());
   }
 
-  // ================= RESET PASSWORD =================
   Future<void> resetPassword(String email) async {
     emit(AuthLoading());
 

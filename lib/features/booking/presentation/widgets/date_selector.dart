@@ -26,7 +26,6 @@ class DateSelector extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // DATE DISPLAY
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(

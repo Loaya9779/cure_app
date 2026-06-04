@@ -71,7 +71,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      // const ImageTextStart(),
                       const SizedBox(height: 20),
 
                       const Text(

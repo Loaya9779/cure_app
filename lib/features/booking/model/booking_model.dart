@@ -4,7 +4,7 @@ class BookingModel {
   final String service;
   final DateTime date;
   final String? notes;
-  final String status; // 👈 مهم جدًا
+  final String status; 
 
   BookingModel({
     this.id,
@@ -21,7 +21,7 @@ class BookingModel {
       "service": service,
       "date": date.toIso8601String(),
       "notes": notes,
-      "status": status, // 👈 مهم
+      "status": status, 
     };
   }
 

@@ -19,7 +19,6 @@ class BookingRepositoryImpl implements AdminBookingRepository {
 
         final String userId = booking['userId'] ?? '';
 
-        // 🔥 الحل الصح: نجيب user بالـ uid مش docId
         final userQuery = await firestore
             .collection('users')
             .where('uid', isEqualTo: userId)
@@ -33,13 +32,11 @@ class BookingRepositoryImpl implements AdminBookingRepository {
           AdminBookingModel(
             id: doc.id,
 
-            // 📦 booking data
             serviceType: booking['service'] ?? '',
             date: booking['date'] ?? '',
             status: booking['status'] ?? 'upcoming',
             notes: booking['notes'] ?? '',
 
-            // 👤 user data
             userName: user['name'] ?? '',
             phone: user['phoneNumber'] ?? '',
             address: user['address'] ?? '',

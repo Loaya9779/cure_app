@@ -2,12 +2,10 @@
 class AdminBookingModel {
   final String id;
   final String uid;
-  // booking data
   final String serviceType;
   final String date;
   final String notes;
 
-  // user data
   final String userName;
   final String phone;
   final String address;

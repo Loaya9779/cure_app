@@ -65,7 +65,7 @@ class BookingCubit extends Cubit<BookingState> {
         service: selectedService!,
         date: fullDateTime,
         notes: notes,
-        status: "upcoming", // ✅ هنا الحل
+        status: "upcoming",
       );
 
       await _repo.createBooking(booking);

@@ -41,7 +41,6 @@ class BookingScreen extends StatelessWidget {
             );
           }
 
-          // ❌ Error case
           if (state is BookingError) {
             ScaffoldMessenger.of(
               context,
@@ -49,7 +48,6 @@ class BookingScreen extends StatelessWidget {
           }
         },
 
-        // UI
         child: Scaffold(
           appBar: AppBar(
             title: const Text("Book Service"),

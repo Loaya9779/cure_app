@@ -25,7 +25,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       await _repo.updateProfile(profile);
 
-      // 🔥 مهم: رجّع البيانات الجديدة مباشرة
       emit(ProfileLoaded(profile));
     } catch (e) {
       emit(ProfileError(e.toString()));

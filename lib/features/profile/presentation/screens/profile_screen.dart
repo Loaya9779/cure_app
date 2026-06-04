@@ -1,10 +1,12 @@
 import 'package:cuer_app/core/utils/colors.dart';
+import 'package:cuer_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:cuer_app/features/profile/cubit/profile_cubit.dart';
 import 'package:cuer_app/features/profile/cubit/profile_state.dart';
 import 'package:cuer_app/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:cuer_app/features/profile/presentation/widgets/edit_button.dart';
 import 'package:cuer_app/features/profile/presentation/widgets/info_tile.dart';
 import 'package:cuer_app/features/profile/presentation/widgets/loading_widget.dart';
+import 'package:cuer_app/features/profile/presentation/widgets/logout_button.dart';
 import 'package:cuer_app/features/profile/presentation/widgets/profile_header.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Profile"),
+      appBar: AppBar(
+        title: const Text("My Profile"),
         backgroundColor: AppColors.primaryColor,
         foregroundColor: AppColors.textColor,
       ),
@@ -60,14 +63,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ProfileInfoTile(title: "Phone", value: user.phoneNumber),
                   ProfileInfoTile(title: "Address", value: user.address),
                   ProfileInfoTile(title: "Blood Type", value: user.bloodType),
-                  ProfileInfoTile(title: "Diseases", value: user.chronicDiseases),
+                  ProfileInfoTile(
+                    title: "Diseases",
+                    value: user.chronicDiseases,
+                  ),
                   ProfileInfoTile(title: "Notes", value: user.notes),
 
-                  const SizedBox(height: 30),
+                  // const SizedBox(height: 30),
 
-                  EditProfileButton(onTap: () {
-                    Navigator.pushNamed(context, EditProfileScreen.pageID);
-                  }),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: EditProfileButton(
+                      onTap: () {
+                        Navigator.pushNamed(context, EditProfileScreen.pageID);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: LogoutButton(
+                      onTap: () {
+                        FirebaseAuth.instance.signOut();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          LoginPage.pageID,
+                          (route) => false,
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             );

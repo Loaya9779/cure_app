@@ -2,6 +2,7 @@ import 'package:cuer_app/core/utils/colors.dart';
 import 'package:cuer_app/core/widgets/custom_button.dart';
 import 'package:cuer_app/features/booking/presentation/screens/booking_screen.dart';
 import 'package:cuer_app/features/dashboard/cubit/dashboard_cubit.dart';
+import 'package:cuer_app/features/dashboard/presentation/widgets/admin_action_button.dart';
 import 'package:cuer_app/features/dashboard/presentation/widgets/dashboard_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const String pageID = "dashboard";
-
   const DashboardScreen({super.key});
 
   @override
@@ -33,6 +33,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         foregroundColor: AppColors.textColor,
+        actions: [AdminActionButton()],
       ),
 
       body: Padding(
@@ -83,10 +84,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   height: 50,
                   child: CustomButton(
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        BookingScreen.pageID,
-                      );
+                      Navigator.pushNamed(context, BookingScreen.pageID);
                     },
                     child: const Text(
                       "Book New Service",

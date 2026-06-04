@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
+    this.buttonColor,
     this.onTap,
     this.buttonText,
     this.isLoading = false,
@@ -12,7 +13,7 @@ class CustomButton extends StatelessWidget {
     this.weidth,
     this.child,
   });
-
+  final Color? buttonColor;
   final double? height;
   final double? weidth;
   final double? textsize;
@@ -31,7 +32,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: isLoading
               ? Colors.grey
-              : AppColors.primaryColor,
+              : buttonColor ?? AppColors.primaryColor,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(

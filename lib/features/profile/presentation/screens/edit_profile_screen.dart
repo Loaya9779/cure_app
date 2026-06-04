@@ -58,6 +58,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       bloodType: bloodType ?? "",
       chronicDiseases: diseaseController.text.trim(),
       notes: notesController.text.trim(),
+      rule: 'user',
     );
 
     context.read<ProfileCubit>().updateProfile(updatedProfile);
@@ -66,7 +67,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Edit Profile"),
+      appBar: AppBar(
+        title: const Text("Edit Profile"),
         backgroundColor: AppColors.primaryColor,
         foregroundColor: AppColors.textColor,
       ),

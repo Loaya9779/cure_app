@@ -1,3 +1,4 @@
+import 'package:cuer_app/features/admin_booking/presentation/screen/admin_booking_screen.dart';
 import 'package:cuer_app/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:cuer_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:cuer_app/features/auth/presentation/screens/register_screen.dart';
@@ -19,6 +20,7 @@ class AppRoutes {
   static const String completeProfile = CompleteProfileScreen.pageID;
   static const String profile = ProfileScreen.pageID;
   static const String editProfile = EditProfileScreen.pageID;
+  static const String adminBooking = AdminBookingScreen.pageID;
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -48,6 +50,9 @@ class AppRoutes {
       
       case editProfile:
         return MaterialPageRoute(builder: (_) => const EditProfileScreen());
+
+      case adminBooking:
+        return MaterialPageRoute(builder: (_) => const AdminBookingScreen());
 
       default:
         return MaterialPageRoute(

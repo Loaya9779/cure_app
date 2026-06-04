@@ -6,6 +6,7 @@ class ProfileModel {
   final String bloodType;
   final String chronicDiseases;
   final String notes;
+  final String rule;
 
   ProfileModel({
     required this.uid,
@@ -15,6 +16,7 @@ class ProfileModel {
     required this.bloodType,
     required this.chronicDiseases,
     required this.notes,
+    required this.rule,
   });
 
   /// 🔥 تحويل لـ Firebase
@@ -27,6 +29,7 @@ class ProfileModel {
       "bloodType": bloodType,
       "chronicDiseases": chronicDiseases,
       "notes": notes,
+      "rule": rule,
     };
   }
 
@@ -40,6 +43,7 @@ class ProfileModel {
       bloodType: json["bloodType"] ?? "",
       chronicDiseases: json["chronicDiseases"] ?? "",
       notes: json["notes"] ?? "",
+      rule: json["rule"] ?? "user",
     );
   }
 
@@ -51,6 +55,7 @@ class ProfileModel {
     String? bloodType,
     String? chronicDiseases,
     String? notes,
+    String? rule,
   }) {
     return ProfileModel(
       uid: uid,
@@ -60,6 +65,7 @@ class ProfileModel {
       bloodType: bloodType ?? this.bloodType,
       chronicDiseases: chronicDiseases ?? this.chronicDiseases,
       notes: notes ?? this.notes,
+      rule: rule ?? this.rule,
     );
   }
 }

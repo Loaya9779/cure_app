@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cuer_app/config/routes/app_router.dart';
+import 'package:cuer_app/features/admin_booking/cubit/admin_booking_cubit.dart';
+import 'package:cuer_app/features/admin_booking/repository/admin_booking_repository_impl.dart';
 import 'package:cuer_app/features/auth/presentation/bloc/auth_cubit.dart';
 import 'package:cuer_app/features/auth/presentation/screens/auth_gate.dart';
 import 'package:cuer_app/features/booking/cubit/booking_cubit.dart';
@@ -33,6 +36,11 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (_) => CompleteProfileCubit()),
         BlocProvider(create: (_) => ProfileCubit(ProfileRepository())),
         BlocProvider(create: (_) => DashboardCubit()),
+        BlocProvider(
+          create: (_) => AdminBookingCubit(
+            BookingRepositoryImpl(FirebaseFirestore.instance),
+          ),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

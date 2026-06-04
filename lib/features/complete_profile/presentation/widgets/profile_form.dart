@@ -50,6 +50,7 @@ class _ProfileFormState extends State<ProfileForm> {
       bloodType: bloodType!,
       chronicDiseases: diseaseController.text.trim(),
       notes: notesController.text.trim(),
+      rule: 'user',
     );
 
     context.read<CompleteProfileCubit>().saveProfile(profile);
